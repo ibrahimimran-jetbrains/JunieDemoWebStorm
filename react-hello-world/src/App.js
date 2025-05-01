@@ -1,13 +1,12 @@
 import './App.css';
+import WorldClock from './WorldClock';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Hello World!</h1>
-        <p>
-          Welcome to my first React application.
-        </p>
+        <h1>World Clock App</h1>
+        <WorldClock />
       </header>
     </div>
   );
