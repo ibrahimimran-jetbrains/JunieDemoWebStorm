@@ -1,12 +1,11 @@
 import './App.css';
-import WorldClock from './WorldClock';
+import SpiderSolitaire from './SpiderSolitaire';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>World Clock App</h1>
-        <WorldClock />
+        <SpiderSolitaire />
       </header>
     </div>
   );

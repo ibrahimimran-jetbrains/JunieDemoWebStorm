@@ -1,0 +1,513 @@
+/* Spider Solitaire Game Styling */
+
+.spider-solitaire {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+.spider-solitaire.fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  max-width: none;
+  z-index: 9999;
+  background-color: #277a4c;
+  padding: 10px;
+}
+
+/* Game Header */
+.game-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.game-header h1 {
+  margin: 0 0 15px 0;
+  color: #333;
+  font-size: 2.5rem;
+}
+
+.game-info {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.score, .stock-count {
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 5px 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 5px;
+}
+
+.game-controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.game-controls button, .game-controls select {
+  padding: 8px 15px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #4a90e2;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.game-controls button:hover {
+  background-color: #357abd;
+}
+
+.game-controls button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.game-controls select {
+  background-color: #5cb85c;
+}
+
+.game-controls select:hover {
+  background-color: #4cae4c;
+}
+
+/* Game Area */
+.game-area {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Foundation Area */
+.foundation-area {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.foundation-pile {
+  width: 100px;
+  height: 140px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  position: relative;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.foundation-pile::before {
+  content: "K→A";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+  color: rgba(255, 255, 255, 0.3);
+  font-weight: bold;
+}
+
+.foundation-pile:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Stock Area */
+.stock-area {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+.stock-pile {
+  width: 100px;
+  height: 140px;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.stock-pile:hover {
+  transform: translateY(-5px);
+}
+
+.stock-pile::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  z-index: 1;
+}
+
+.stock-pile .card-back {
+  width: 100%;
+  height: 100%;
+  background-color: #2c3e50;
+  background-image: 
+    linear-gradient(
+      135deg, 
+      #3498db 25%, 
+      #2980b9 25%, 
+      #2980b9 50%, 
+      #3498db 50%, 
+      #3498db 75%, 
+      #2980b9 75%, 
+      #2980b9
+    );
+  background-size: 20px 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  border: 1px solid #1f2c38;
+}
+
+.stock-pile .stock-count {
+  position: absolute;
+  bottom: -25px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  z-index: 2;
+}
+
+/* Add a stacked cards effect */
+.stock-pile::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 100%;
+  height: 100%;
+  background-color: #2c3e50;
+  background-image: 
+    linear-gradient(
+      135deg, 
+      #3498db 25%, 
+      #2980b9 25%, 
+      #2980b9 50%, 
+      #3498db 50%, 
+      #3498db 75%, 
+      #2980b9 75%, 
+      #2980b9
+    );
+  background-size: 20px 20px;
+  border-radius: 10px;
+  z-index: -1;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  border: 1px solid #1f2c38;
+}
+
+/* Tableau Area */
+.tableau-area {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  overflow-x: auto;
+  padding-bottom: 20px;
+}
+
+.tableau-column {
+  width: 100px;
+  min-height: 140px;
+  position: relative;
+  margin-bottom: 200px; /* Increased space for stacked cards */
+  overflow: visible; /* Ensure cards can be seen outside the column */
+}
+
+.empty-column {
+  width: 100%;
+  height: 140px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.empty-column::before {
+  content: "Empty";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.3);
+  font-weight: bold;
+}
+
+.empty-column:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Card Styling */
+.card {
+  width: 100px;
+  height: 140px;
+  border-radius: 10px;
+  position: absolute;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, top 0.5s ease, left 0.5s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  animation: deal-card 0.5s ease-out;
+}
+
+@keyframes deal-card {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.card.face-up {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  animation: flip-card 0.6s ease-out;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+@keyframes flip-card {
+  0% {
+    transform: rotateY(90deg);
+    opacity: 0.5;
+  }
+  100% {
+    transform: rotateY(0deg);
+    opacity: 1;
+  }
+}
+
+.card.face-down {
+  background-color: #2c3e50;
+  background-image: 
+    linear-gradient(
+      135deg, 
+      #3498db 25%, 
+      #2980b9 25%, 
+      #2980b9 50%, 
+      #3498db 50%, 
+      #3498db 75%, 
+      #2980b9 75%, 
+      #2980b9
+    );
+  background-size: 20px 20px;
+  border: 1px solid #1f2c38;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+.card.selected {
+  box-shadow: 0 0 0 3px #ffcc00, 0 8px 16px rgba(0, 0, 0, 0.4);
+  z-index: 100;
+  transform: translateY(-5px);
+}
+
+.card-value {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+  position: relative;
+}
+
+.card-suit {
+  font-size: 2.5rem;
+  position: relative;
+}
+
+/* Add small suit indicators in corners */
+.card.face-up::before,
+.card.face-up::after {
+  content: attr(data-value);
+  position: absolute;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.card.face-up::before {
+  top: 5px;
+  left: 5px;
+}
+
+.card.face-up::after {
+  bottom: 5px;
+  right: 5px;
+  transform: rotate(180deg);
+}
+
+/* Suit colors */
+.card.hearts .card-value, .card.hearts .card-suit,
+.card.diamonds .card-value, .card.diamonds .card-suit {
+  color: #e74c3c;
+}
+
+.card.clubs .card-value, .card.clubs .card-suit,
+.card.spades .card-value, .card.spades .card-suit {
+  color: #2c3e50;
+}
+
+/* Game Footer */
+.game-footer {
+  margin-top: 20px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Themes */
+.spider-solitaire.default {
+  background-color: #277a4c; /* Classic green */
+}
+
+.spider-solitaire.dark {
+  background-color: #2c3e50;
+}
+
+.spider-solitaire.dark .game-header h1 {
+  color: #ecf0f1;
+}
+
+.spider-solitaire.light {
+  background-color: #ecf0f1;
+}
+
+.spider-solitaire.blue {
+  background-color: #3498db;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .tableau-column {
+    width: 90px;
+    margin-bottom: 180px; /* Adjusted space for stacked cards */
+  }
+
+  .card, .foundation-pile, .stock-pile {
+    width: 90px;
+    height: 126px;
+  }
+
+  .game-area {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+}
+
+@media (max-width: 992px) {
+  .tableau-column {
+    width: 80px;
+    margin-bottom: 160px; /* Adjusted space for stacked cards */
+  }
+
+  .card, .foundation-pile, .stock-pile {
+    width: 80px;
+    height: 112px;
+  }
+
+  .card-value {
+    font-size: 1.5rem;
+  }
+
+  .card-suit {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .tableau-column {
+    width: 70px;
+    margin-bottom: 140px; /* Adjusted space for stacked cards */
+  }
+
+  .card, .foundation-pile, .stock-pile {
+    width: 70px;
+    height: 98px;
+  }
+
+  .card-value {
+    font-size: 1.2rem;
+  }
+
+  .card-suit {
+    font-size: 1.5rem;
+  }
+
+  .game-controls {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .game-controls button, .game-controls select {
+    width: 100%;
+    max-width: 200px;
+  }
+
+  /* Adjust card stacking for smaller screens */
+  .tableau-area {
+    padding-bottom: 30px;
+  }
+}
+
+@media (max-width: 576px) {
+  .tableau-column {
+    width: 60px;
+    margin-bottom: 120px; /* Adjusted space for stacked cards */
+  }
+
+  .card, .foundation-pile, .stock-pile {
+    width: 60px;
+    height: 84px;
+  }
+
+  .card-value {
+    font-size: 1rem;
+  }
+
+  .card-suit {
+    font-size: 1.2rem;
+  }
+
+  .game-header h1 {
+    font-size: 1.8rem;
+  }
+
+  /* Further adjust card stacking for very small screens */
+  .tableau-area {
+    padding-bottom: 40px;
+    gap: 5px; /* Reduce gap between columns */
+  }
+}
